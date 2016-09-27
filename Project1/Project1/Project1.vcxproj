@@ -148,6 +148,9 @@
   <ItemGroup>
     <ClCompile Include="Project1.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\p1_131.pdf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
