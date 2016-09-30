@@ -27,7 +27,10 @@ const float DOLLAR_PER_DIME = 0.10f;
 const float DOLLAR_PER_NICKLE = 0.05f;
 const float DOLLAR_PER_PENNY = 0.01f;
 
+//const 
 
+double roundToCent(double numToRound);
+double shiftDecimal(double numberToRound, int decimalPlaces);
 
 //---------------------------------------------------------
 // Function:	main() 
@@ -46,18 +49,26 @@ const float DOLLAR_PER_PENNY = 0.01f;
 // Environment:	Intel Core i5
 //				Software: OS: Windows 10 
 //				Compiles under Microsoft Visual Studio 2015
+//
+//				Intel Core i7
+//				Software: OS: Windows 7
+//				Compiles under Microsoft Visual Studio 2015 Community
 // 
 // Input:		- user inputs a dollar amount for a purchase
 //				- user inputs the amount tendered for the purchase
 //
-// Output:		- a listing of the change
+// Output:		- console output of purchase amount entered
+//				- console output of tender amount entered
+//				- console output of the listing of the change
 //
-// Parameters: void
+// Calls:		roundToCents()
 //
-// Returns: EXIT_SUCCESS for successful completion 
+// Parameters:	void
+//
+// Returns:		EXIT_SUCCESS for successful completion 
 //
 // History Log:
-//   9/27/16	bcl		started version 1.0
+//				9/27/16	bcl		started version 1.0
 //---------------------------------------------------------
 int main(void)
 {
@@ -88,7 +99,7 @@ int main(void)
 	*/
 	double purchaseTotalInDollars = 0.00;
 	double tenderAmountInDollars = 0.00;
-	double changeinCents = 0.00;
+	double changeinDollars = 0.00;
 
 	int purchaseTotalInCents = 0;
 	int tenderAmountInCents = 0;
@@ -107,25 +118,37 @@ int main(void)
 
 	printf("Welcome to Change Counter by Bryndon Lezchuk!\n\n");
 	printf("\tPlease enter the total amount of purchase: $");
-	scanf("%lf",&purchaseTotalInDollars);//input total amount of purchase
-	//round to nearest penny
-	printf("\t$%.2lf", (double)(purchaseTotalInCents * DOLLAR_PER_PENNY));//output amount entered rounded to nearest cent
+	scanf("%lf",&purchaseTotalInDollars);									//input total amount of purchase
+	purchaseTotalInDollars = roundToCent(purchaseTotalInDollars);			//round to nearest penny
+	printf("\t$%.2lf\n", purchaseTotalInDollars);							//output amount entered rounded to nearest cent
 
 	printf("\tPlease enter amount of money tendered: $");
-	scanf("%lf", &tenderAmountInDollars);//input tender amount
-	//round to nearest penny
-	printf("\t%.2lf", tenderAmountInDollars); //output amount entered rounded to nearest cent
+	scanf("%lf", &tenderAmountInDollars);									//input tender amount
+	tenderAmountInDollars = roundToCent(tenderAmountInDollars);				//round to nearest penny
+	printf("\t$%.2lf\n", tenderAmountInDollars);							//output amount entered rounded to nearest cent
 
-	//convert dollars to cents
-	purchaseTotalInCents = (int)round(purchaseTotalInDollars * CENTS_PER_ONE);
-	tenderAmountInCents = (int)round(tenderAmountInDollars * CENTS_PER_ONE);
+	////convert dollars to cents
+	//purchaseTotalInCents = (int)round(purchaseTotalInDollars * CENTS_PER_ONE);
+	//tenderAmountInCents = (int)round(tenderAmountInDollars * CENTS_PER_ONE);
 
 	//calculate change
+	changeinDollars = tenderAmountInDollars - purchaseTotalInDollars;
+	changeInCents = shiftDecimal(changeinDollars, 2);
 
+	printf("\tYour change is: $%.2lf\n",changeinDollars);
 
-	printf("\tYour change is: $");
+	printf("\t-------------------------------------------\n");
 
-	while(getchar()) ;
+	//count change
+	numTwenties = changeInCents / CENTS_PER_TWENTY;
+	remainderInCents = changeInCents % CENTS_PER_TWENTY;
+	printf("\tTwenties\t: %d\n", numTwenties);
+
+	numTens = remainderInCents / CENTS_PER_TEN;
+	remainderInCents %= CENTS_PER_TEN;
+	printf("\tTens\t\t: %d\n", numTens);
+
+	getchar();
 
 	return EXIT_SUCCESS;
 }
@@ -134,32 +157,46 @@ int main(void)
 //---------------------------------------------------------
 // Function:	roundToCent(double numToRound)
 //
-// Title:		Project1
+// Title:		Round Off Cents
 //
-// Description: Change Counter
+// Description: Rounds a dollar amount off to the nearest
+//					complete cent ($0.01)
 //
 // Programmer:	Bryndon Lezchuk (bryndonlezchuk@gmail.com)
 //
-// Date:		9/27/16
+// Date:		9/29/16
 //
 // Version:		1.00
 //
 // Environment:	Intel Core i5
 //				Software: OS: Windows 10 
 //				Compiles under Microsoft Visual Studio 2015
+//
+//				Intel Core i7
+//				Software: OS: Windows 7
+//				Compiles under Microsoft Visual Studio 2015 Community
 // 
 // Input:		
 //
 // Output:		
 //
-// Parameters:	double numToRound - a double with any
+// Parameters:	double numToRound 
 //
-// Returns: EXIT_SUCCESS for successful completion 
+// Returns:		the parameter number rounded to 2 decimal points
 //
 // History Log:
-//   9/27/16	bcl		started version 1.0
+//				9/29/16	bcl		created version 1.0
 //---------------------------------------------------------
 double roundToCent(double numToRound)
 {
+	return (floor((numToRound * 100.0) + 0.5) / 100.0);
+}
+
+
+
+double shiftDecimal(double numberToShift, int decimalPlaces)
+{
+	double multiplier = pow(10.0, decimalPlaces);
 	
+	return (numberToShift * multiplier);
 }
