@@ -27,10 +27,10 @@ const float DOLLAR_PER_DIME = 0.10f;
 const float DOLLAR_PER_NICKLE = 0.05f;
 const float DOLLAR_PER_PENNY = 0.01f;
 
-//const 
+const float ROUND_PRIMER = 0.5f;
 
 double roundToCent(double numToRound);
-double shiftDecimal(double numberToRound, int decimalPlaces);
+//double shiftDecimal(double numberToRound, int decimalPlaces);
 
 //---------------------------------------------------------
 // Function:	main() 
@@ -107,6 +107,7 @@ int main(void)
 
 	int numTwenties = 0;
 	int numTens = 0;
+	int numFives = 0;
 	int numOnes = 0;
 	int numQuarters = 0;
 	int numDimes = 0;
@@ -133,7 +134,7 @@ int main(void)
 
 	//calculate change
 	changeinDollars = tenderAmountInDollars - purchaseTotalInDollars;
-	changeInCents = shiftDecimal(changeinDollars, 2);
+	changeInCents = (int)(changeinDollars * 100 + ROUND_PRIMER);
 
 	printf("\tYour change is: $%.2lf\n",changeinDollars);
 
@@ -148,7 +149,30 @@ int main(void)
 	remainderInCents %= CENTS_PER_TEN;
 	printf("\tTens\t\t: %d\n", numTens);
 
-	getchar();
+	numFives = remainderInCents / CENTS_PER_FIVE;
+	remainderInCents %= CENTS_PER_FIVE;
+	printf("\tFives\t\t: %d\n", numFives);
+
+	numOnes = remainderInCents / CENTS_PER_ONE;
+	remainderInCents %= CENTS_PER_ONE;
+	printf("\tOnes\t\t: %d\n", numOnes);
+
+	numQuarters = remainderInCents / CENTS_PER_QUARTER;
+	remainderInCents %= CENTS_PER_QUARTER;
+	printf("\tQuarters\t: %d\n", numQuarters);
+
+	numDimes = remainderInCents / CENTS_PER_DIME;
+	remainderInCents %= CENTS_PER_DIME;
+	printf("\tDimes\t\t: %d\n", numDimes);
+
+	numNickles = remainderInCents / CENTS_PER_NICKLE;
+	remainderInCents %= CENTS_PER_NICKLE;
+	printf("\tNickles\t\t: %d\n", numNickles);
+
+	numPennies = remainderInCents;
+	printf("\tPennies\t\t: %d\n", numPennies);
+
+	while(getchar()) ;
 
 	return EXIT_SUCCESS;
 }
@@ -189,14 +213,5 @@ int main(void)
 //---------------------------------------------------------
 double roundToCent(double numToRound)
 {
-	return (floor((numToRound * 100.0) + 0.5) / 100.0);
-}
-
-
-
-double shiftDecimal(double numberToShift, int decimalPlaces)
-{
-	double multiplier = pow(10.0, decimalPlaces);
-	
-	return (numberToShift * multiplier);
+	return (floor((numToRound * 100.0) + ROUND_PRIMER) / 100.0);
 }
