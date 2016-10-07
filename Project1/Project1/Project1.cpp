@@ -28,6 +28,7 @@ const float DOLLAR_PER_NICKLE = 0.05f;
 const float DOLLAR_PER_PENNY = 0.01f;
 
 const float ROUND_PRIMER = 0.5f;
+const int HUNDRED_MULTIPLIER = 100;
 
 double roundToCent(double numToRound);
 //double shiftDecimal(double numberToRound, int decimalPlaces);
@@ -101,9 +102,9 @@ int main(void)
 	double tenderAmountInDollars = 0.00;
 	double changeinDollars = 0.00;
 
-	int purchaseTotalInCents = 0;
-	int tenderAmountInCents = 0;
-	int changeInCents = 0;
+	long long purchaseTotalInCents = 0;
+	long long tenderAmountInCents = 0;
+	long long changeInCents = 0;
 
 	int numTwenties = 0;
 	int numTens = 0;
@@ -115,6 +116,8 @@ int main(void)
 	int numPennies = 0;
 
 	int remainderInCents = 0;
+
+	char bufferClear[128] = "";
 	
 
 	printf("Welcome to Change Counter by Bryndon Lezchuk!\n\n");
@@ -122,6 +125,8 @@ int main(void)
 	scanf("%lf",&purchaseTotalInDollars);									//input total amount of purchase
 	purchaseTotalInDollars = roundToCent(purchaseTotalInDollars);			//round to nearest penny
 	printf("\t$%.2lf\n", purchaseTotalInDollars);							//output amount entered rounded to nearest cent
+
+	//scanf("%s", &bufferClear);
 
 	printf("\tPlease enter amount of money tendered: $");
 	scanf("%lf", &tenderAmountInDollars);									//input tender amount
@@ -134,7 +139,7 @@ int main(void)
 
 	//calculate change
 	changeinDollars = tenderAmountInDollars - purchaseTotalInDollars;
-	changeInCents = (int)(changeinDollars * 100 + ROUND_PRIMER);
+	changeInCents = (long long)(changeinDollars * 100 + ROUND_PRIMER);
 
 	printf("\tYour change is: $%.2lf\n",changeinDollars);
 
@@ -172,7 +177,12 @@ int main(void)
 	numPennies = remainderInCents;
 	printf("\tPennies\t\t: %d\n", numPennies);
 
-	while(getchar()) ;
+	printf("\t-------------------------------------------\n");
+	printf("\tThank you for using Change Counter!\n\n");
+
+	while(getchar() != '\n') ;
+	printf("[Press Enter to quit]");
+	getchar();
 
 	return EXIT_SUCCESS;
 }
