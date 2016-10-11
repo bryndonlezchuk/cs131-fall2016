@@ -69,7 +69,8 @@ double roundToCent(double numToRound);
 // Returns:		EXIT_SUCCESS for successful completion 
 //
 // History Log:
-//				9/27/16	bcl		started version 1.0
+//				9/27/16		bcl		started version 1.0
+//				10/10/16	bcl		finished version 1.0
 //---------------------------------------------------------
 int main(void)
 {
@@ -106,7 +107,7 @@ int main(void)
 	long long tenderAmountInCents = 0;
 	long long changeInCents = 0;
 
-	int numTwenties = 0;
+	long long numTwenties = 0;
 	int numTens = 0;
 	int numFives = 0;
 	int numOnes = 0;
@@ -117,12 +118,11 @@ int main(void)
 
 	int remainderInCents = 0;
 
-	char bufferClear[128] = "";
-	
+	//char bufferClear[128] = "";
 
 	printf("Welcome to Change Counter by Bryndon Lezchuk!\n\n");
 	printf("\tPlease enter the total amount of purchase: $");
-	scanf("%lf",&purchaseTotalInDollars);									//input total amount of purchase
+	scanf("%lf", &purchaseTotalInDollars);									//input total amount of purchase
 	purchaseTotalInDollars = roundToCent(purchaseTotalInDollars);			//round to nearest penny
 	printf("\t$%.2lf\n", purchaseTotalInDollars);							//output amount entered rounded to nearest cent
 
@@ -133,22 +133,33 @@ int main(void)
 	tenderAmountInDollars = roundToCent(tenderAmountInDollars);				//round to nearest penny
 	printf("\t$%.2lf\n", tenderAmountInDollars);							//output amount entered rounded to nearest cent
 
+	if (tenderAmountInDollars < purchaseTotalInDollars)
+	{
+		printf("\tSorry, you had insufficient change, please restart the program and try again.\n");
+
+		while (getchar() != '\n');
+		printf("\n[Press Enter to quit]");
+		getchar();
+
+		return EXIT_FAILURE;
+	}
+
 	////convert dollars to cents
 	//purchaseTotalInCents = (int)round(purchaseTotalInDollars * CENTS_PER_ONE);
 	//tenderAmountInCents = (int)round(tenderAmountInDollars * CENTS_PER_ONE);
 
 	//calculate change
 	changeinDollars = tenderAmountInDollars - purchaseTotalInDollars;
-	changeInCents = (long long)(changeinDollars * 100 + ROUND_PRIMER);
+	changeInCents = (long long)(changeinDollars * HUNDRED_MULTIPLIER + ROUND_PRIMER);
 
 	printf("\tYour change is: $%.2lf\n",changeinDollars);
 
 	printf("\t-------------------------------------------\n");
 
 	//count change
-	numTwenties = changeInCents / CENTS_PER_TWENTY;
+	numTwenties = changeInCents / (long long)CENTS_PER_TWENTY;
 	remainderInCents = changeInCents % CENTS_PER_TWENTY;
-	printf("\tTwenties\t: %d\n", numTwenties);
+	printf("\tTwenties\t: %lld\n", numTwenties);
 
 	numTens = remainderInCents / CENTS_PER_TEN;
 	remainderInCents %= CENTS_PER_TEN;
@@ -178,10 +189,10 @@ int main(void)
 	printf("\tPennies\t\t: %d\n", numPennies);
 
 	printf("\t-------------------------------------------\n");
-	printf("\tThank you for using Change Counter!\n\n");
+	printf("\tThank you for using Change Counter!\n");
 
 	while(getchar() != '\n') ;
-	printf("[Press Enter to quit]");
+	printf("\n[Press Enter to quit]");
 	getchar();
 
 	return EXIT_SUCCESS;
@@ -219,9 +230,10 @@ int main(void)
 // Returns:		the parameter number rounded to 2 decimal points
 //
 // History Log:
-//				9/29/16	bcl		created version 1.0
+//				9/29/16		bcl		created version 1.0
+//				10/10/16	bcl		changed to constants
 //---------------------------------------------------------
 double roundToCent(double numToRound)
 {
-	return (floor((numToRound * 100.0) + ROUND_PRIMER) / 100.0);
+	return (floor((numToRound * HUNDRED_MULTIPLIER) + ROUND_PRIMER) / HUNDRED_MULTIPLIER);
 }
