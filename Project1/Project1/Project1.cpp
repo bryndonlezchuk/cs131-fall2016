@@ -2,7 +2,8 @@
 // File: Project1.cpp
 //
 // Functions:
-//    main()
+//		main()
+//		roundToCent()
 //---------------------------------------------------------
 
 #include <stdio.h>
