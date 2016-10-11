@@ -122,16 +122,16 @@ int main(void)
 
 	printf("Welcome to Change Counter by Bryndon Lezchuk!\n\n");
 	printf("\tPlease enter the total amount of purchase: $");
-	scanf("%lf", &purchaseTotalInDollars);									//input total amount of purchase
-	purchaseTotalInDollars = roundToCent(purchaseTotalInDollars);			//round to nearest penny
-	printf("\t$%.2lf\n", purchaseTotalInDollars);							//output amount entered rounded to nearest cent
+	scanf("%lf", &purchaseTotalInDollars);	//input total amount of purchase
+	purchaseTotalInDollars = roundToCent(purchaseTotalInDollars); //round to nearest penny
+	printf("\t$%.2lf\n", purchaseTotalInDollars); //output amount entered rounded to nearest cent
 
 	//scanf("%s", &bufferClear);
 
 	printf("\tPlease enter amount of money tendered: $");
-	scanf("%lf", &tenderAmountInDollars);									//input tender amount
-	tenderAmountInDollars = roundToCent(tenderAmountInDollars);				//round to nearest penny
-	printf("\t$%.2lf\n", tenderAmountInDollars);							//output amount entered rounded to nearest cent
+	scanf("%lf", &tenderAmountInDollars); //input tender amount
+	tenderAmountInDollars = roundToCent(tenderAmountInDollars); //round to nearest penny
+	printf("\t$%.2lf\n", tenderAmountInDollars); //output amount entered rounded to nearest cent
 
 	if (tenderAmountInDollars < purchaseTotalInDollars)
 	{
