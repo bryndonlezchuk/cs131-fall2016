@@ -15,10 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="S:\My Documents\CS131\GitTest\GitTest\Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="argcv.c">
+    <ClCompile Include="StandardDeviation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
