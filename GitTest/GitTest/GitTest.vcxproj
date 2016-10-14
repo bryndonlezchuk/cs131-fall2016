@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="argcv.c" />
     <ClCompile Include="S:\My Documents\CS131\GitTest\GitTest\Source.cpp" />
+    <ClCompile Include="Source1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

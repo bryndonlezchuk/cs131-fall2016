@@ -14,6 +14,8 @@
 //----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
+	int returnValue = EXIT_SUCCESS;
+
 	FILE * inFileHandle = NULL;
 	FILE * outFileHandle = NULL;
 	char filename[FILENAME_MAX] = "";
@@ -48,7 +50,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		puts("Enter the name of the file to write (output):");
-		gets(filename); // not safe! (potential buffer overflow)
+		fgets(filename, FILENAME_MAX, stdin); // not safe! (potential buffer overflow)
 	}
 
 	outFileHandle = fopen(filename, "a");
