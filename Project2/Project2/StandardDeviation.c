@@ -14,12 +14,11 @@
 //----------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-	int returnValue = EXIT_SUCCESS;
-
 	FILE * inFileHandle = NULL;
 	FILE * outFileHandle = NULL;
 	char filename[FILENAME_MAX] = "";
 	char c = ' ';
+	int returnValue = EXIT_SUCCESS;
 	if (argc > 1)
 	{
 		strncpy(filename, argv[1], FILENAME_MAX);
@@ -43,35 +42,46 @@ int main(int argc, char *argv[])
 		getch();
 		returnValue = EXIT_FAILURE;
 	}
-	if (argc > 2)
-	{
-		strncpy(filename, argv[2], FILENAME_MAX);
-	}
 	else
 	{
-		puts("Enter the name of the file to write (output):");
-		fgets(filename, FILENAME_MAX, stdin); // not safe! (potential buffer overflow)
-	}
+		if (argc > 2)
+		{
+			strncpy(filename, argv[2], FILENAME_MAX);
+		}
+		else
+		{
+			puts("Enter the name of the file to write (output):");
+			// gets() - not safe! (potential buffer overflow)
+			fgets(filename, FILENAME_MAX, stdin);
+			if (filename[strlen(filename) - 1] == '\n')
+				filename[strlen(filename) - 1] = '\0';
+			else
+				while (getchar() != '\n')
+					;
+		}
 
-	outFileHandle = fopen(filename, "a");
-	if (outFileHandle == NULL)
-	{
-		fclose(inFileHandle);
-		printf("Could not open file %s for output.\n"
-			"Press any key to Continue", filename);
-		getch();
-		return EXIT_FAILURE;
+		outFileHandle = fopen(filename, "w");
+		if (outFileHandle == NULL)
+		{
+			fclose(inFileHandle);
+			printf("Could not open file %s for output.\n"
+				"Press any key to Continue", filename);
+			getch();
+			returnValue = EXIT_FAILURE;
+		}
+		else
+		{
+			while ((c = (char)getc(inFileHandle)) != EOF)
+			{
+				if (c == ' ')
+					c = '\n';
+				putc(c, outFileHandle);
+			}
+			fclose(inFileHandle);
+			fclose(outFileHandle);
+			puts("\nPress any key to Continue");
+			getch();
+		}
 	}
-
-	while ((c = (char)getc(inFileHandle)) != EOF)
-	{
-		if (c == ' ')
-			c = '\n';
-		putc(c, outFileHandle);
-	}
-	fclose(inFileHandle);
-	fclose(outFileHandle);
-	puts("\nPress any key to Continue");
-	getch();
-	return EXIT_SUCCESS;
+	return returnValue;
 }
