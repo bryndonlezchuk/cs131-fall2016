@@ -30,29 +30,30 @@ int main(int argc, char *argv[])
 
 	FILE * inFileHandle = NULL;
 	FILE * outFileHandle = NULL;
-	char filename[FILENAME_MAX] = "";
+	char inFilename[FILENAME_MAX] = "";
+	char outFilename[FILENAME_MAX] = "";
 	char c = ' ';
 	int returnValue = EXIT_SUCCESS;
 	if (argc > 1)
 	{
-		strncpy(filename, argv[1], FILENAME_MAX);
+		strncpy(inFilename, argv[1], FILENAME_MAX);
 	}
 	else
 	{
 		puts("Enter the name of the file to read (source):");
-		fgets(filename, FILENAME_MAX, stdin);
-		if (filename[strlen(filename) - 1] == '\n')
-			filename[strlen(filename) - 1] = '\0';
+		fgets(inFilename, FILENAME_MAX, stdin);
+		if (inFilename[strlen(inFilename) - 1] == '\n')
+			inFilename[strlen(inFilename) - 1] = '\0';
 		else
 			while (getchar() != '\n')
 				;
 	}
 
-	inFileHandle = fopen(filename, "r");
+	inFileHandle = fopen(inFilename, "r");
 	if (inFileHandle == NULL)
 	{
 		printf("Could not open file %s for input.\n"
-			"Press any key to Continue", filename);
+			"Press any key to Continue", inFilename);
 		getch();
 		returnValue = EXIT_FAILURE;
 	}
@@ -60,31 +61,37 @@ int main(int argc, char *argv[])
 	{
 		if (argc > 2)
 		{
-			strncpy(filename, argv[2], FILENAME_MAX);
+			strncpy(outFilename, argv[2], FILENAME_MAX);
 		}
 		else
 		{
 			puts("Enter the name of the file to write (output):");
 			// gets() - not safe! (potential buffer overflow)
-			fgets(filename, FILENAME_MAX, stdin);
-			if (filename[strlen(filename) - 1] == '\n')
-				filename[strlen(filename) - 1] = '\0';
+			fgets(outFilename, FILENAME_MAX, stdin);
+			if (outFilename[strlen(outFilename) - 1] == '\n')
+				outFilename[strlen(outFilename) - 1] = '\0';
 			else
 				while (getchar() != '\n')
 					;
 		}
 
-		outFileHandle = fopen(filename, "w");
+		outFileHandle = fopen(outFilename, "w");
 		if (outFileHandle == NULL)
 		{
 			fclose(inFileHandle);
 			printf("Could not open file %s for output.\n"
-				"Press any key to Continue", filename);
+				"Press any key to Continue", outFilename);
 			getch();
 			returnValue = EXIT_FAILURE;
 		}
 		else
 		{
+			fprintf(outFileHandle, "The results from file %s are:\n", inFilename);
+			fprintf(outFileHandle, "_____________________________________________________________________\n");
+			fprintf(outFileHandle, "|# of data|  sum  |   range   | mean | variance | standard deviation|\n");
+			fprintf(outFileHandle, "_____________________________________________________________________\n");
+			//fprintf(outFileHandle, "|%5d|%5d|%8d|%5d|%8d|")
+
 			//while ((c = (char)getc(inFileHandle)) != EOF)
 			//{
 			//	//if (c == ' ')
@@ -94,6 +101,7 @@ int main(int argc, char *argv[])
 
 			while ((fscanf(inFileHandle, "%d", &numElements)) == 1)
 			{
+				// for each element
 				for (int i = 0; i < numElements; i++)
 				{
 					totalNumElements++;
@@ -101,7 +109,9 @@ int main(int argc, char *argv[])
 
 					if (firstPass)
 					{
-						lowElement, highElement = currentElement;
+						lowElement = currentElement;
+						highElement = currentElement;
+						firstPass = 0;
 					}
 					else if (currentElement < lowElement)
 					{
@@ -112,8 +122,11 @@ int main(int argc, char *argv[])
 						highElement = currentElement;
 					}
 
-
+					sumOfElements += currentElement;
 				}
+
+				// for each group of elements
+
 			}
 
 			fclose(inFileHandle);
