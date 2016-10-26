@@ -90,7 +90,6 @@ int main(int argc, char *argv[])
 			fprintf(outFileHandle, "_____________________________________________________________________\n");
 			fprintf(outFileHandle, "|# of data|  sum  |   range   | mean | variance | standard deviation|\n");
 			fprintf(outFileHandle, "_____________________________________________________________________\n");
-			//fprintf(outFileHandle, "|%5d|%5d|%8d|%5d|%8d|")
 
 			//while ((c = (char)getc(inFileHandle)) != EOF)
 			//{
@@ -126,7 +125,10 @@ int main(int argc, char *argv[])
 				}
 
 				// for each group of elements
+				meanOfElements = sumOfElements / totalNumElements;
 
+
+				fprintf(outFileHandle, "|%5d|%5d|%8d|%5d|%8d|%5d|\n");
 			}
 
 			fclose(inFileHandle);
