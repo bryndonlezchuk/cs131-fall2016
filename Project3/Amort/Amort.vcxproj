@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B4D0296B-8AFA-4FCD-85F5-0C5FF7D2A5C8}</ProjectGuid>
+    <ProjectGuid>{53D35AC6-56A0-43B3-BB72-029F81C90B6C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Project3</RootNamespace>
+    <RootNamespace>Amort</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,7 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Amortization.c" />
+    <ClInclude Include="Amort.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Amort.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,14 +12,19 @@ void printArray2D(const int array[][SIZE], int rows);
 //----------------------------------------------------------------------------
 int main(void)
 {
-	int intArray[SIZE] = {0};
+	int intArray1[SIZE] = {0}; //array of SIZE full of 0's
+	int intArray2[] = { 0,2,4 }; //array of 3
 	//int intArray[] = {0,1,2,3,4}; //array of 5
-	int* a_ptr = intArray;
+	int intArray3[SIZE] = { 0,2,4,9 }; //array of SIZE with 4 elements
+	int* a_ptr = intArray1;
 	int intArray2D[ROWS][SIZE] = {  {1, 2, 3, 4, 5},
 									{6, 7, 8, 9, 0}};
+
+	int *(collection[3]) = 
+
 	printArray2D(intArray2D, ROWS); 
-	fillArray(intArray, SIZE);
-	printArray(intArray, SIZE);
+	fillArray(intArray1, SIZE);
+	printArray(intArray1, SIZE);
 	getchar();
 	return EXIT_SUCCESS;
 }

@@ -15,7 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Amortization.c">
+    <ClInclude Include="Amort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Amort.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
