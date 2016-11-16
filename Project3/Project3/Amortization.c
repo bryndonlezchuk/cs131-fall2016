@@ -55,13 +55,81 @@ int main(void)
 	int paymentAmountInCents = 0;
 	double paymentAmountInDollars = 0.0;
 
+	printf("Welcome to Amortization by Bryndon Lezchuk.\n\n");
+
+	char menuSelection = ' ';
+	char continueChoice = ' ';
+	int proceed = 1; // 1 = true, 0 = false
+
+	while (proceed)
+	{
+		printf("Please select an option:\n");
+		printf("\t1) Calculate (P)ayment size.\n");
+		printf("\t2) Calculate (L)oan size.\n");
+		printf("\t3) Calculate (N)umber of payments.\n");
+		printf("\t4) (Q)uit.\n\n");
+		printf("\tSelection: ");
+
+		menuSelection = getchar();
+		while (getchar() != '\n');
+
+		switch (menuSelection)
+		{
+			case '1':
+			case 'P':
+			case 'p':
+
+				break;
+			case '2':
+			case 'L':
+			case 'l':
+				break;
+			case '3':
+			case 'N':
+			case 'n':
+				break;
+			case '4':
+			case 'Q':
+			case 'q':
+				break;
+			default:
+				printf("Invalid option, please try again.\n\n");
+				continue;
+				break;
+		}
+		printf("\n");
+
+		printf("Would you like to continue operations? (y/n) : ");
+
+		continueChoice = getchar();
+		while (getchar() != '\n');
+
+		switch (continueChoice)
+		{
+			case 'y':
+			case 'Y':
+				proceed = 1;
+				break;
+			case 'n':
+			case 'N':
+				//break;
+			default:
+				proceed = 0;
+				break;
+		}
+	}
 
 
 
+	
 
-
-
-	monthlyInterestRateInDecimal = annualInterestRatePercentage / (MONTH_PER_YEAR * PERCENTAGE_BASE);
+	//monthlyInterestRateInDecimal = annualInterestRatePercentage / (MONTH_PER_YEAR * PERCENTAGE_BASE);
 
 	return EXIT_SUCCESS;
+}
+
+
+float getMonthlyInterestInDecimal(float annualInterest)
+{
+	return annualInterest / (MONTH_PER_YEAR * PERCENTAGE_BASE);
 }
