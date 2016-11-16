@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../Amort/Amort.h"
 #pragma warning(disable: 4996)
 
 const int PERCENTAGE_BASE = 100;
@@ -15,7 +16,7 @@ const int MONTH_PER_YEAR = 12;
 //
 // Programmer:	Bryndon Lezchuk (bryndonlezchuk@gmail.com)
 //
-// Date:		9/27/16
+// Date:		11/8/2016
 //
 // Version:		1.00
 //
@@ -25,29 +26,21 @@ const int MONTH_PER_YEAR = 12;
 //
 //				Intel Core i7
 //				Software: OS: Windows 7
-//				Compiles under Microsoft Visual Studio 2015 Community
+//				Compiles under Microsoft Visual Studio 2015
 // 
-// Input:		- user inputs the filename to read data from
-//				- user inputs the filename to write output to
+// Input:		
 //
-// Output:		To a file:
-//				- number of data
-//				- sum of data
-//				- range of data
-//				- mean of data
-//				- variance
-//				- standard deviation
+// Output:		
 //
 // Calls:		
 //
-// Parameters:	int argc, char *argv[]
+// Parameters:	void
 //
 // Returns:		EXIT_SUCCESS for successful completion 
 //				EXIT_FAILURE for failed completion
 //
 // History Log:
-//				10/11/16	bcl		started version 1.0
-//				10/23/16	bcl		finished version 1.0
+//				11/8/16		bcl		started version 1.0
 //----------------------------------------------------------------------------
 int main(void)
 {
@@ -69,4 +62,6 @@ int main(void)
 
 
 	monthlyInterestRateInDecimal = annualInterestRatePercentage / (MONTH_PER_YEAR * PERCENTAGE_BASE);
+
+	return EXIT_SUCCESS;
 }

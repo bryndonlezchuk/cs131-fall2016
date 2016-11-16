@@ -39,15 +39,40 @@ double getPaymentAmount(float monthlyInterestInDecimal, int numberMonths, double
 //
 double getLoanAmount(float monthlyInterestInDecimal, int numberMonths, double paymentAmountInDollars)
 {
+	double loanAmountInDollars = 0.0;
 
+	if (monthlyInterestInDecimal > 0)
+	{
+		loanAmountInDollars = (pow((1.0 + monthlyInterestInDecimal), numberMonths) / (monthlyInterestInDecimal * pow((1.0 + monthlyInterestInDecimal), numberMonths))) * paymentAmountInDollars;
+	}
+	else if (monthlyInterestInDecimal == 0.0)
+	{
+		loanAmountInDollars = numberMonths * paymentAmountInDollars;
+	}
 
 	//returns the amount of the entire loan (rounded off to the nearest cent).
+	loanAmountInDollars = (ceil(loanAmountInDollars * 100) / 100);
+
+	return loanAmountInDollars;
 }
 
 //
 //
 //
-int getNumberOfMonths()
+int getNumberOfMonths(float monthlyInterestInDecimal, double paymentAmountInDollars, double principalInDollars)
 {
+	int numberMonths = 0;
+
+	if (monthlyInterestInDecimal > 0)
+	{
+		numberMonths = (int)ceil((log(paymentAmountInDollars) - log(paymentAmountInDollars - (principalInDollars * monthlyInterestInDecimal))) / log(1 + monthlyInterestInDecimal));
+	}
+	else if (monthlyInterestInDecimal = 0)
+	{
+		numberMonths = (int)ceil(principalInDollars / paymentAmountInDollars);
+	}
+
 	//returns the number of monthly payments to be made ("rounded" up to the next integer).
+
+	return numberMonths;
 }
